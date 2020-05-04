@@ -15,7 +15,6 @@ public class SsnProcess {
             while ((row = csvReader.readLine()) != null) {
                 String[] dividedRow = row.split(",");
                 ssnList.put(dividedRow[1], dividedRow[0]);
-                System.out.println(dividedRow[1] + "_" + dividedRow[0]);
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,6 +1,6 @@
 package util;
 
-public class RandomStringGenerator {
+public class RandomOrderAbcGenerator {
     public static void main(String[] args) {
         String s = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         int stringRange = s.length();
