@@ -1,7 +1,22 @@
+import annotations.SubstitutionMethod;
 import com.google.common.hash.Hashing;
 
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
+
+/**
+ * Simple encryption using substitution
+ * @author evakule
+ * @author github.com/evakule
+ *
+ * Class structure:
+ * - variables for substitution strategies
+ * - constructor that initilalize substitution strategies
+ * - methods for preparing decoding
+ * - substitution methods
+ * - main method: getChangedRow();
+ *
+ */
 
 public class Encryption {
     private static final String AT = "@";
@@ -197,6 +212,7 @@ public class Encryption {
         }
     }
 
+    @SubstitutionMethod
     private String replaceSymbols(String row, HashMap<String, String> pair) {
         if (row != null) {
             char[] charArray = row.toCharArray();
@@ -212,23 +228,28 @@ public class Encryption {
         return "null";
     }
 
+    @SubstitutionMethod
     private String replaceStates(String state, HashMap<String, String> pair) {
         return pair.get(state);
     }
 
+    @SubstitutionMethod
     private String hideLastName(String lastName) {
         return replaceSymbols(lastName, lastNamePair);
     }
 
+    @SubstitutionMethod
     private String hideFirstName(String firstName) {
         return replaceSymbols(firstName, firstNamePair);
     }
 
+    @SubstitutionMethod
     private String hideDateOfBirth(String dateOfBirth) {
         char key = dateOfBirth.charAt(1);
         return dateOfBirthPair.get(Character.toString(key));
     }
 
+    @SubstitutionMethod
     private String hideSsn4(String hashedSsn4) {
         String decodedSsn4 = ssnProcess.getSsnList().get(hashedSsn4);
         String newSsn4 = replaceSymbols(decodedSsn4, ssn4Pair);
@@ -236,29 +257,34 @@ public class Encryption {
             return Hashing.sha1().hashString(newSsn4, StandardCharsets.UTF_8).toString();
         else
             return "null";
-
     }
 
+    @SubstitutionMethod
     private String hideAddrLine1(String addrLine1) {
         return replaceSymbols(addrLine1, addrLine1Pair);
     }
 
+    @SubstitutionMethod
     private String hideAddrLine2(String addrLine2) {
         return replaceSymbols(addrLine2, addrLine2Pair);
     }
 
+    @SubstitutionMethod
     private String hideCity(String city) {
         return replaceSymbols(city, cityPair);
     }
 
+    @SubstitutionMethod
     private String hideUsStateShortFormCode(String usStateShortForm) {
         return replaceStates(usStateShortForm, usShortFormStateCodesPair);
     }
 
+    @SubstitutionMethod
     private String hidePostCode(String usStateShortForm) {
         return postCodePair.get(usStateShortForm);
     }
 
+    @SubstitutionMethod
     private String hideEMail(String email) {
         String updated = replaceSymbols(email, emailPair);
         if (updated.contains(AT)) {
@@ -269,10 +295,12 @@ public class Encryption {
         return updated;
     }
 
+    @SubstitutionMethod
     private String hidePrimaryPhone(String primaryPhone) {
         return replaceSymbols(primaryPhone, primaryPhonePair);
     }
 
+    @SubstitutionMethod
     private String hideSecondaryPhone(String secondaryPhone) {
         return replaceSymbols(secondaryPhone, secondaryPhonePair);
     }
